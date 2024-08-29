@@ -25,9 +25,11 @@
                 <table class="table table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>NOME</th>
-                            <th>TELEFONE</th>
-                            <th>EMAIL</th>
+                            <th>NOME📛</th>
+                            <th>TELEFONE📞</th>
+                            <th>EMAIL✉</th>
+                            <th></i>Gênero <i class="bi bi-gender-male"></i><i class="bi bi-gender-female"></i></th>
+                            <th>Data📅</th>
                         </tr>
                     </thead>
                     <tbody id="lista">
@@ -36,9 +38,16 @@
             </div>
             <div class="col-md-4">
                 <form>
-                    <input type="text" class="form-control" id="nome" placeholder="Nome">
-                    <input type="tel" class="form-control" id="cell" placeholder="Telefone">
+                    <input type="text" class="form-control" id="nome" placeholder="Nome" pattern="[a-Za-z]+">
+                    <input type="number" class="form-control" id="cell" placeholder="Telefone"
+                        pattern="[0-9]+([,\.][0-9]+)?" min="0" step="any">
                     <input type="email" class="form-control" id="email" placeholder="Email">
+                    <select name="Gêneros" id="genero">
+                        <option value="" selected>Gêneros</option>
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                    </select>
+                    <input type="date" id="data">
 
                     <button type="submit" class="btn btn-primary" id="btn_cadastrar">Salvar</button>
 
@@ -47,10 +56,10 @@
             </div>
         </div>
     </div>
-    
-    
-    
-    
+
+
+
+
     <script src="boots.js"></script>
     <script src="todo.js"></script>
 </body>

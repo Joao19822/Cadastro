@@ -3,8 +3,8 @@ let nomes = []
 let nome = document.getElementById('nome') 
 let cell = document.getElementById('cell') 
 let email = document.getElementById('email') 
-
-
+let genero = document.getElementById('genero')
+let data = document.getElementById('data')
 
 let id_tmp = document.getElementById('id_tmp');
 let btn_cadastrar = document.getElementById('btn_cadastrar');
@@ -20,7 +20,7 @@ btn_cadastrar.addEventListener('click', (e) => {
         }, 3000);
     } else {
         if (id_tmp.value == "") {
-            nomes.push([nome.value,cell.value,email.value])
+            nomes.push([nome.value,cell.value,email.value,genero.value,data.value])
         } else {
             if (id_tmp.value == "") {
                 nomes.push(nome.value)
@@ -28,6 +28,8 @@ btn_cadastrar.addEventListener('click', (e) => {
                 nomes[id_tmp.value][0] = nome.value
                 nomes[id_tmp.value][1] = cell.value
                 nomes[id_tmp.value][2] = email.value
+                nomes[id_tmp.value][3] = genero.value
+                nomes[id_tmp.value][4] = data.value
             }
         }
     
@@ -35,6 +37,8 @@ btn_cadastrar.addEventListener('click', (e) => {
         nome.value = ""
         cell.value = ""
         email.value = ""
+        genero.value = ""
+        data.value = ""
     }
 })
 
@@ -46,6 +50,8 @@ function atualizar_listar() {
         <td>${nm[0]}</td> 
         <td>${nm[1]}</td> 
         <td>${nm[2]}</td> 
+        <td>${nm[3]}</td> 
+        <td>${nm[4]}</td> 
         <td>
         <button class="btn btn-warning"><i class="bi bi-pencil-square" onclick="editar(${index})"></i></button>
         <button class="btn btn-danger"><i class="bi bi-trash3" onclick="apagar(${index})"></i></i/button>
@@ -62,6 +68,8 @@ function editar(indice) {
     nome.value = nomes[indice][0]
     cell.value = nomes[indice][1]
     email.value = nomes[indice][2]
+    genero.value = nomes[indice][3]
+    data.value = nomes[indice][4]
 
     btn_cadastrar.classList.remove('btn-primary')
     btn_cadastrar.classList.add('btn-info')

@@ -1,10 +1,13 @@
 let nomes = []
 
-let nome = document.getElementById('nome') 
-let cell = document.getElementById('cell') 
-let email = document.getElementById('email') 
+let nome = document.getElementById('nome')
+let cell = document.getElementById('cell')
+let email = document.getElementById('email')
 let genero = document.getElementById('genero')
-let data = document.getElementById('data')
+let dt = document.getElementById('dt')
+
+var homens = 0;
+var mulheres = 0;
 
 let id_tmp = document.getElementById('id_tmp');
 let btn_cadastrar = document.getElementById('btn_cadastrar');
@@ -20,7 +23,7 @@ btn_cadastrar.addEventListener('click', (e) => {
         }, 3000);
     } else {
         if (id_tmp.value == "") {
-            nomes.push([nome.value,cell.value,email.value,genero.value,data.value])
+            nomes.push([nome.value, cell.value, email.value, genero.value, dt.value])
         } else {
             if (id_tmp.value == "") {
                 nomes.push(nome.value)
@@ -29,23 +32,40 @@ btn_cadastrar.addEventListener('click', (e) => {
                 nomes[id_tmp.value][1] = cell.value
                 nomes[id_tmp.value][2] = email.value
                 nomes[id_tmp.value][3] = genero.value
-                nomes[id_tmp.value][4] = data.value
+                nomes[id_tmp.value][4] = dt.value
             }
         }
-    
+
         atualizar_listar();
         nome.value = ""
         cell.value = ""
         email.value = ""
         genero.value = ""
-        data.value = ""
+        dt.value = ""
     }
+    drawChart()
 })
 
 function atualizar_listar() {
     let lista = document.getElementById('lista');
     lista.innerHTML = "";
+
+    homens = 0;
+    mulheres = 0;
+
     nomes.forEach((nm, index) => {
+
+        switch (nm[3]) {
+            case 'M':
+                homens++
+                break;
+
+            case 'F':
+                mulheres++
+                break;
+
+        }
+
         lista.innerHTML += `<tr> 
         <td>${nm[0]}</td> 
         <td>${nm[1]}</td> 
@@ -69,7 +89,7 @@ function editar(indice) {
     cell.value = nomes[indice][1]
     email.value = nomes[indice][2]
     genero.value = nomes[indice][3]
-    data.value = nomes[indice][4]
+    dt.value = nomes[indice][4]
 
     btn_cadastrar.classList.remove('btn-primary')
     btn_cadastrar.classList.add('btn-info')
@@ -77,15 +97,42 @@ function editar(indice) {
     id_tmp.value = indice;
 }
 
-function apagar(indice){
+function apagar(indice) {
     let confirmacao = confirm('Deseja realmente excluir o item ' + nomes[indice] + " ?")
 
-    if(confirmacao){
+    if (confirmacao) {
         //apagar
-        nomes.splice(indice,1);
+        nomes.splice(indice, 1);
         atualizar_listar();
-    }else{
+
+        drawChart()
+
+    } else {
         //cancelar a exclusão
         alert("Exclusão cancelada")
     }
 }
+
+google.charts.load("current", { packages: ["corechart"] });
+google.charts.setOnLoadCallback(drawChart); 
+function drawChart() {
+    if(homens !=0 || mulheres != 0 ){
+
+        var data = google.visualization.arrayToDataTable([
+            ['Proporção', 'Por genero'],
+            ['Mulheres', homens],
+            ['Homens', mulheres],
+        ]);
+        
+        var options = {
+            title: 'Proporção Por Genero',
+            is3D: true,
+        };
+        
+        var chart = new google.visualization.PieChart(document.getElementById('grafico'));
+        chart.draw(data, options);
+    }
+
+}
+
+

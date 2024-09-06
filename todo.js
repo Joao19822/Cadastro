@@ -15,7 +15,7 @@ btn_cadastrar.addEventListener('click', (e) => {
     e.preventDefault();
 
 
-    if (nome.value == "") {
+    if (nome.value,cell.value,email.value,genero.value,dt.value == "") {
         let msg = document.getElementById('mensagens');
         msg.classList.remove('d-none');
         setTimeout(() => {
@@ -120,8 +120,8 @@ function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
             ['Proporção', 'Por genero'],
-            ['Mulheres', homens],
-            ['Homens', mulheres],
+            ['Homens', homens],
+            ['Mulheres', mulheres],
         ]);
         
         var options = {
